@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability Distribution Visualizer</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Probability Distribution Visualizer</h1>
+        <form action="/generate" method="POST" class="text-center mb-4">
+            <label for="pdfType" class="font-weight-bold">Select a Probability Distribution:</label>
+            <select name="pdfType" id="pdfType" class="form-control">
+                <option value="binomial">Binomial</option>
+                <option value="poisson">Poisson</option>
+                <option value="geometric">Geometric</option>
+                <option value="hypergeometric">Hypergeometric</option>
+                <option value="normal">Normal</option>
+                <option value="exponential">Exponential</option>
+                <option value="uniform">Uniform</option>
+                <option value="beta">Beta</option>
+            </select>
+            <button type="submit" class="btn btn-custom mt-3">Generate Graph</button>
+        </form>
+
+        {% if plot_url %}
+        <div class="text-center">
+            <img src="{{ plot_url }}" alt="Generated Plot" class="img-fluid">
+        </div>
+        <div class="mt-4">
+            <h5>Data Points:</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x, y in data_points %}
+                    <tr>
+                        <td>{{ x | round(2) }}</td>
+                        <td>{{ y | round(4) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
